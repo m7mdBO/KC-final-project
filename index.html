@@ -1,136 +1,231 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>uni Student info</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- fname -->
     <label>First Name</label>
-    <input type="text"id= "FnameInp">
-    <br>
+    <input type="text" id="FnameInp" />
+    <br />
+    <!-- lname -->
     <label>Last Name</label>
-    <input type="text"id= "LnameInp">
-    <br>
+    <input type="text" id="LnameInp" />
+    <br />
+    <!-- contry -->
+    <label>Country</label>
+    <input type="text" id="countryInp" />
+    <br />
+    <!-- addres -->
+    <label>addres</label>
+    <input type="text" id="adInp" />
+    <br />
+    <label>flor no</label>
+    <input type="number" id="flInp" />
+    <br />
+    <label>apartment no</label>
+    <input type="number" id="apInp" />
+    <br />
+    <!-- Department -->
     <label>Department</label>
     <select id="DeptInp">
-        <option value="Development">Development</option>
-        <option value="Testing">Testing</option>
-        <option value="Management">Management</option>
-        <option value="Administration">Administration</option>
+      <option value="1">كلية الاداب</option>
+      <option value="2">كلية التربية</option>
+      <option value="3">كليةالشريعة</option>
+      <option value="4">كلية الهندسة</option>
+      <option value="5">كلية العلوم</option>
     </select>
-    <br>
-    <label>can Swim</label>
-    <select id="SwimInp">
-        <option value="yes">yes</option>
-        <option value="no">no</option>
+    <br />
+    <!-- gender  -->
+    <label>gender</label>
+    <select id="genInp">
+      <option value="male">male</option>
+      <option value="female">female</option>
     </select>
-    <br>
+    <br />
+    <!-- marital status -->
+    <label>marital status</label>
+    <select id="marInp">
+      <option value="Married">Married</option>
+      <option value="single">single</option>
+    </select>
+    <br />
+    <!-- admission category -->
+    <label>admission category</label>
+    <select id="admInp">
+      <option value="w">منحة وزير</option>
+      <option value="t">منحة ثقافية</option>
+      <option value="m">منحة مركز اللغات</option>
+      <option value="a">منحة التبادل الطلابي</option>
+    </select>
 
+    <br />
+    <!-- passport no -->
+    <label>passport no</label>
+    <input type="number" id="passInp" />
+    <br />
+    <!--  Civil No -->
+    <label>Civil no</label>
+    <input type="number" id="civInp" />
+    <br />
+    <!-- Psychosocial report -->
+    <label>Psychosocial report</label>
+    <input type="text" id="psInp" />
+    <br />
+    <!-- uni no -->
     <label>uni no</label>
-    <input type="number"id= "CnicInp">
-    <br>
+    <input type="number" id="uniInp" />
+    <br />
 
     <button id="AddBtn">Add</button>
     <button id="RetBtn">Retrieve</button>
     <button id="UpdBtn">Update</button>
     <button id="DelBtn">Delete</button>
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
 
-        const firebaseConfig = {
-          apiKey: "AIzaSyBqwUKI2UROJHb5v0dBSjzqRf476zPMziI",
-          authDomain: "uni-studenthousing-information.firebaseapp.com",
-          databaseURL: "https://uni-studenthousing-information-default-rtdb.firebaseio.com",
-          projectId: "uni-studenthousing-information",
-          storageBucket: "uni-studenthousing-information.appspot.com",
-          messagingSenderId: "378641756142",
-          appId: "1:378641756142:web:4dbd0d275c81a6383c28ff"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
+      const firebaseConfig = {
+        apiKey: "AIzaSyBqwUKI2UROJHb5v0dBSjzqRf476zPMziI",
+        authDomain: "uni-studenthousing-information.firebaseapp.com",
+        databaseURL:
+          "https://uni-studenthousing-information-default-rtdb.firebaseio.com",
+        projectId: "uni-studenthousing-information",
+        storageBucket: "uni-studenthousing-information.appspot.com",
+        messagingSenderId: "378641756142",
+        appId: "1:378641756142:web:4dbd0d275c81a6383c28ff",
+      };
 
-        import {getDatabase,ref,child,get,set,update,remove} from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js";
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
 
-        const db = getDatabase();
-        let FnameInp = document.getElementById("FnameInp");
-        let LnameInp = document.getElementById("LnameInp");
-        let DeptInp  = document.getElementById("DeptInp");
-        let SwimInp = document.getElementById("SwimInp");
-        let CnicInp = document.getElementById("CnicInp");
+      import {
+        getDatabase,
+        ref,
+        child,
+        get,
+        set,
+        update,
+        remove,
+      } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js";
 
-        let Addbtn = document.getElementById("AddBtn");
-        let Retbtn = document.getElementById("RetBtn");
-        let Updbtn = document.getElementById("UpdBtn");
-        let Delbtn = document.getElementById("DelBtn");
+      const db = getDatabase();
+      let FnameInp = document.getElementById("FnameInp");
+      let LnameInp = document.getElementById("LnameInp");
+      let countryInp = document.getElementById("countryInp");
+      let adInp = document.getElementById("adInp");
+      let psInp = document.getElementById("psInp");
 
+      let DeptInp = document.getElementById("DeptInp");
+      let genInp = document.getElementById("genInp");
+      let marInp = document.getElementById("marInp");
+      let admInp = document.getElementById("admInp");
+      let passInp = document.getElementById("passInp");
+      let flInp = document.getElementById("flInp");
+      let apInp = document.getElementById("apInp");
+      let civInp = document.getElementById("civInp");
+      let uniInp = document.getElementById("uniInp");
+      let Addbtn = document.getElementById("AddBtn");
+      let Retbtn = document.getElementById("RetBtn");
+      let Updbtn = document.getElementById("UpdBtn");
+      let Delbtn = document.getElementById("DelBtn");
 
-        function AddData(){
-            set(ref(db, "Employeeset/" +CnicInp.value),{
-                nameofemployee: {firstname: FnameInp.value, lastname: LnameInp.value },
-                department: DeptInp.value,
-                canswim: (SwimInp.value == "yes"),
-                cnic: Number(CnicInp.value)
-            }).then(()=>{
-                alert("data Added Successfuly");
-            }).catch((error)=>{
-                alert("Unsuccessful");
-                console.log(error);
+      function AddData() {
+        set(ref(db, "Employeeset/" + uniInp.value), {
+          nameofemployee: {
+            firstname: FnameInp.value,
+            lastname: LnameInp.value,
+          },
+          country: countryInp.value,
+          addres: adInp.value,
+          department: DeptInp.value,
+          gender: genInp.value,
+          marital: marInp.value,
+          admission: marInp.value,
+          uni: Number(uniInp.value),
+          passport: Number(passInp.value),
+          Civil: Number(civInp.value),
+          flor: Number(flInp.value),
+          apartment: Number(apInp.value),
+        })
+          .then(() => {
+            alert("data Added Successfuly");
+          })
+          .catch((error) => {
+            alert("Unsuccessful");
+            console.log(error);
+          });
+      }
 
-            })
-        }
+      function RetData() {
+        const dbRef = ref(db);
 
-        function RetData(){
-            const dbRef = ref(db);
+        get(child(dbRef, "Employeeset/" + uniInp.value))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              FnameInp.value = snapshot.val().nameofemployee.firstname;
+              LnameInp.value = snapshot.val().nameofemployee.lastname;
+              countryInp.value = snapshot.val().country;
+              adInp.value = snapshot.val().addres;
+              DeptInp.value = snapshot.val().department;
+              genInp.value = snapshot.val().gender;
+              marInp.value = snapshot.val().marital;
+              admInp.value = snapshot.val().admission;
+              passInp.value = snapshot.val().passport;
+              flInp.value = snapshot.val().flor;
+              apInp.value = snapshot.val().apartment;
+              civInp.value = snapshot.val().Civil;
+            } else {
+              alert("Employee does not exist");
+            }
+          })
+          .catch((error) => {
+            alert("Unsuccessful");
+            console.log(error);
+          });
+      }
 
-            get(child(dbRef,"Employeeset/" + CnicInp.value)).then((snapshot)=>{
-                if(snapshot.exists()){
-                    FnameInp.value = snapshot.val().nameofemployee.firstname;
-                    LnameInp.value = snapshot.val().nameofemployee.lastname;
-                    DeptInp.value = snapshot.val().department;
-                    SwimInp.value = (snapshot.val().canswim) ? "yes" : "no";
+      function UpdateData() {
+        update(ref(db, "Employeeset/" + uniInp.value), {
+          nameofemployee: {
+            firstname: FnameInp.value,
+            lastname: LnameInp.value,
+          },
+          country: countryInp.value,
+          addres: adInp.value,
+          department: DeptInp.value,
+          gender: genInp.value,
+          marital: marInp.value,
+          admission: admInp.value,
+          passport: passInp.value,
+          flor: flInp.value,
+          apartment: apInp.value,
+          Civil: Civil.value,
+        })
+          .then(() => {
+            alert("data updated Successfuly");
+          })
+          .catch((error) => {
+            alert("Unsuccessful");
+            console.log(error);
+          });
+      }
+      function DeleteData() {
+        remove(ref(db, "Employeeset/" + uniInp.value))
+          .then(() => {
+            alert("data Deleted Successfuly");
+          })
+          .catch((error) => {
+            alert("Unsuccessful");
+            console.log(error);
+          });
+      }
 
-                }
-                else{
-                    alert("Employee does not exist");
-                }
-            })
-            .catch((error)=>{
-                alert("Unsuccessful");
-                console.log(error);
-
-            })
-        }
-
-        function UpdateData(){
-            update(ref(db, "Employeeset/" +CnicInp.value),{
-                nameofemployee: {firstname: FnameInp.value, lastname: LnameInp.value },
-                department: DeptInp.value,
-                canswim: (SwimInp.value == "yes"),
-            }).then(()=>{
-                alert("data updated Successfuly");
-            }).catch((error)=>{
-                alert("Unsuccessful");
-                console.log(error);
-
-            })
-        }
-        function DeleteData(){
-            remove(ref(db, "Employeeset/" +CnicInp.value),).then(()=>{
-                alert("data Deleted Successfuly");
-            }).catch((error)=>{
-                alert("Unsuccessful");
-                console.log(error);
-
-            })
-        }
-
-        Addbtn.addEventListener("click",AddData);
-        Retbtn.addEventListener("click",RetData);
-        Updbtn.addEventListener("click",UpdateData);
-        Delbtn.addEventListener("click",DeleteData);
-
-      </script>
-</body>
+      Addbtn.addEventListener("click", AddData);
+      Retbtn.addEventListener("click", RetData);
+      Updbtn.addEventListener("click", UpdateData);
+      Delbtn.addEventListener("click", DeleteData);
+    </script>
+  </body>
 </html>
