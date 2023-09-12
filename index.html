@@ -18,6 +18,7 @@
     <label>Country</label>
     <input type="text" id="countryInp" />
     <br />
+
     <!-- addres -->
     <label>addres</label>
     <input type="text" id="adInp" />
@@ -71,7 +72,11 @@
 
     <label>Civil no</label>
     <input type="number" id="civInp" />
-    <br />
+    <br /> 
+       <!-- expiry date -->
+    <label>expiry date</label>
+    <input type="date" id="exInp">
+    <br>
     <!-- Psychosocial report -->
 
     <label>Psychosocial report</label>
@@ -96,6 +101,9 @@
       <button id="DelBtn">Delete</button>
       <a href="./Homepage.html"><button>
         Home
+      </button></a>
+      <a href="./index.html"><button>
+        Reset
       </button></a>
     </div>
 
@@ -148,6 +156,7 @@
       let FnameInp = document.getElementById("FnameInp");
       let LnameInp = document.getElementById("LnameInp");
       let countryInp = document.getElementById("countryInp");
+      let exInp = document.getElementById("exInp");
       let adInp = document.getElementById("adInp");
       let psInp = document.getElementById("psInp");
       let heInp = document.getElementById("heInp");
@@ -170,6 +179,7 @@
           firstname: FnameInp.value,
           lastname: LnameInp.value,
           country: countryInp.value,
+          expiry: Date(exInp.value),
           Psychosocial: psInp.value,
           Health: heInp.value,
           addres: adInp.value,
@@ -201,6 +211,7 @@
               FnameInp.value = snapshot.val().firstname;
               LnameInp.value = snapshot.val().lastname;
               countryInp.value = snapshot.val().country;
+              exInp.value = snapshot.val().expiry;
               psInp.value = snapshot.val().Psychosocial;
               heInp.value = snapshot.val().Health;
               adInp.value = snapshot.val().addres;
@@ -227,6 +238,7 @@
           firstname: FnameInp.value,
           lastname: LnameInp.value,
           country: countryInp.value,
+          expiry: exInp.value,
           Psychosocial: psInp.value,
           Health: heInp.value,
           addres: adInp.value,

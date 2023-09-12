@@ -49,6 +49,7 @@
           <th>Admission Category</th>
           <th>Passport No</th>
           <th>Civil No</th>
+          <th>Expiry Date    </th>
           <th>Uni No</th>
         </thead>
         <tbody id="tbody1"></tbody>
@@ -75,6 +76,7 @@
         Adm,
         passNo,
         CivNo,
+        ExNo,
         UniNo
       ) {
         let trow = document.createElement("tr");
@@ -92,6 +94,8 @@
         let td12 = document.createElement("td");
         let td13 = document.createElement("td");
         let td14 = document.createElement("td");
+        let td15 = document.createElement("td");
+
 
         td1.innerHTML = ++stdNo;
         td2.innerHTML = Fname;
@@ -107,6 +111,7 @@
         td12.innerHTML = passNo;
         td13.innerHTML = CivNo;
         td14.innerHTML = UniNo;
+        td15.innerHTML = ExNo;
 
         trow.appendChild(td1);
         trow.appendChild(td2);
@@ -122,9 +127,12 @@
         trow.appendChild(td12);
         trow.appendChild(td13);
         trow.appendChild(td14);
+        trow.appendChild(td15);
+
 
         tbody.appendChild(trow);
       }
+      
 
       function AddAllItemsTOTable(TheStudent) {
         stdNo = 0;
@@ -143,7 +151,9 @@
             element.admission,
             element.passport,
             element.Civil,
-            element.uni
+            element.uni,     
+            element.expiry,
+
           );
         });
       }
