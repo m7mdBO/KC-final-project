@@ -31,11 +31,11 @@
     <!-- Department -->
     <label>Department</label>
     <select id="DeptInp">
-      <option value="1">كلية الاداب</option>
-      <option value="2">كلية التربية</option>
-      <option value="3">كليةالشريعة</option>
-      <option value="4">كلية الهندسة</option>
-      <option value="5">كلية العلوم</option>
+      <option value="كليةالاداب">كلية الاداب</option>
+      <option value="كلية التربية">كلية التربية</option>
+      <option value="كلية الشريعة">كلية الشريعة</option>
+      <option value="كلية العلوم">كلية العلوم</option>
+      <option value="كلية الهندسة">كلية الهندسة</option>
     </select>
     <br />
     <!-- gender  -->
@@ -55,35 +55,61 @@
     <!-- admission category -->
     <label>admission category</label>
     <select id="admInp">
-      <option value="w">منحة وزير</option>
-      <option value="t">منحة ثقافية</option>
-      <option value="m">منحة مركز اللغات</option>
-      <option value="a">منحة التبادل الطلابي</option>
+      <option value="منحة وزير">منحة وزير</option>
+      <option value="منحة ثقافية">منحة ثقافية</option>
+      <option value="منحة مركز اللغات">منحة مركز اللغات</option>
+      <option value="منحة التبادل الطلاب">منحة التبادل الطلاب</option>
     </select>
 
     <br />
     <!-- passport no -->
+
     <label>passport no</label>
     <input type="number" id="passInp" />
     <br />
     <!--  Civil No -->
+
     <label>Civil no</label>
     <input type="number" id="civInp" />
     <br />
     <!-- Psychosocial report -->
+
     <label>Psychosocial report</label>
-    <input type="text" id="psInp" />
+    <textarea id="psInp" class="longA"></textarea>
     <br />
+
+    <!-- Health status -->
+    <label>Health status</label>
+    <textarea id="heInp" class="longA"></textarea>
+    <br />
+
     <!-- uni no -->
     <label>uni no</label>
     <input type="number" id="uniInp" />
     <br />
 
-    <button id="AddBtn">Add</button>
-    <button id="RetBtn">Retrieve</button>
-    <button id="UpdBtn">Update</button>
-    <button id="DelBtn">Delete</button>
+    <!-- buttons -->
+    <div class="button-container">
+      <button id="AddBtn" disabled>Add</button>
+      <button id="RetBtn">Retrieve</button>
+      <button id="UpdBtn">Update</button>
+      <button id="DelBtn">Delete</button>
+    </div>
+
     <script type="module">
+      const addBtn = document.getElementById("AddBtn");
+      const inputFields = document.querySelectorAll(
+        "input[type='text'], input[type='number']"
+      );
+
+      inputFields.forEach((inputField) => {
+        inputField.addEventListener("input", () => {
+          const allFieldsFilled = [...inputFields].every(
+            (field) => field.value.trim() !== ""
+          );
+          addBtn.disabled = !allFieldsFilled;
+        });
+      });
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
 
       const firebaseConfig = {
@@ -116,7 +142,7 @@
       let countryInp = document.getElementById("countryInp");
       let adInp = document.getElementById("adInp");
       let psInp = document.getElementById("psInp");
-
+      let heInp = document.getElementById("heInp");
       let DeptInp = document.getElementById("DeptInp");
       let genInp = document.getElementById("genInp");
       let marInp = document.getElementById("marInp");
@@ -132,17 +158,17 @@
       let Delbtn = document.getElementById("DelBtn");
 
       function AddData() {
-        set(ref(db, "Employeeset/" + uniInp.value), {
-          nameofemployee: {
-            firstname: FnameInp.value,
-            lastname: LnameInp.value,
-          },
+        set(ref(db, "student/" + uniInp.value), {
+          firstname: FnameInp.value,
+          lastname: LnameInp.value,
           country: countryInp.value,
+          Psychosocial: psInp.value,
+          Health: heInp.value,
           addres: adInp.value,
           department: DeptInp.value,
           gender: genInp.value,
           marital: marInp.value,
-          admission: marInp.value,
+          admission: admInp.value,
           uni: Number(uniInp.value),
           passport: Number(passInp.value),
           Civil: Number(civInp.value),
@@ -161,12 +187,14 @@
       function RetData() {
         const dbRef = ref(db);
 
-        get(child(dbRef, "Employeeset/" + uniInp.value))
+        get(child(dbRef, "student/" + uniInp.value))
           .then((snapshot) => {
             if (snapshot.exists()) {
-              FnameInp.value = snapshot.val().nameofemployee.firstname;
-              LnameInp.value = snapshot.val().nameofemployee.lastname;
+              FnameInp.value = snapshot.val().firstname;
+              LnameInp.value = snapshot.val().lastname;
               countryInp.value = snapshot.val().country;
+              psInp.value = snapshot.val().Psychosocial;
+              heInp.value = snapshot.val().Health;
               adInp.value = snapshot.val().addres;
               DeptInp.value = snapshot.val().department;
               genInp.value = snapshot.val().gender;
@@ -177,7 +205,7 @@
               apInp.value = snapshot.val().apartment;
               civInp.value = snapshot.val().Civil;
             } else {
-              alert("Employee does not exist");
+              alert("student does not exist");
             }
           })
           .catch((error) => {
@@ -187,12 +215,12 @@
       }
 
       function UpdateData() {
-        update(ref(db, "Employeeset/" + uniInp.value), {
-          nameofemployee: {
-            firstname: FnameInp.value,
-            lastname: LnameInp.value,
-          },
+        update(ref(db, "student/" + uniInp.value), {
+          firstname: FnameInp.value,
+          lastname: LnameInp.value,
           country: countryInp.value,
+          Psychosocial: psInp.value,
+          Health: heInp.value,
           addres: adInp.value,
           department: DeptInp.value,
           gender: genInp.value,
@@ -201,7 +229,7 @@
           passport: passInp.value,
           flor: flInp.value,
           apartment: apInp.value,
-          Civil: Civil.value,
+          Civil: civInp.value,
         })
           .then(() => {
             alert("data updated Successfuly");
@@ -212,7 +240,7 @@
           });
       }
       function DeleteData() {
-        remove(ref(db, "Employeeset/" + uniInp.value))
+        remove(ref(db, "student/" + uniInp.value))
           .then(() => {
             alert("data Deleted Successfuly");
           })

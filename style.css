@@ -1,0 +1,66 @@
+body {
+  font-family: Arial, sans-serif;
+  /* background-color: #f0f0f0; */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-image: url(https://www.gckuwait.com/wp-content/uploads/2016/11/gulf-consult-kuwait-kniversity-college-of-science8.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 5px;
+  font-size: 18px;
+  color: rgb(217, 217, 217);
+}
+
+input,
+select {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+  font-size: 16px;
+}
+
+select {
+  width: 315px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  padding: 12px 24px;
+  margin: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+.longA {
+  width: 30%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
